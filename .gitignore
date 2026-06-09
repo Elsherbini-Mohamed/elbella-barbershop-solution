@@ -31,6 +31,12 @@ yarn-error.log*
 # vercel
 .vercel
 
+# Claude Code session data
+.claude/
+
+# Scraper (dati locali, non necessari in produzione)
+scraper/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
