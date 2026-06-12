@@ -105,11 +105,12 @@ export async function GET(req: Request) {
       console.warn("[!] La tabella 'orders' o le colonne necessarie non sono disponibili nel database. Il checkout proseguirà comunque senza salvare nel DB.");
     }
 
-    // 5. Send Telegram Notification
+    // 5. Send Telegram Notification — SOLO se l'ordine è appena stato salvato
+    // (previene notifiche duplicate su refresh della success page)
     const botToken = process.env.TELEGRAM_BOT_TOKEN;
     const chatId = process.env.TELEGRAM_CHAT_ID;
 
-    if (botToken && chatId && !botToken.includes("placeholder") && !chatId.includes("123456789")) {
+    if (savedOrder && botToken && chatId && !botToken.includes("placeholder") && !chatId.includes("123456789")) {
       try {
         // Construct the item list text
         const itemsListText = items
